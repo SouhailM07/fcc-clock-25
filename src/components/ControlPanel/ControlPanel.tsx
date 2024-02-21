@@ -1,9 +1,20 @@
 import "./controlpanel.css";
+
+import { useContext } from "react";
+import { TimeProvider } from "../../App.js";
 // assets
 import arrowDown from "/arrow-down-solid.svg";
 import arrowUp from "/arrow-up-solid.svg";
 
 export default function ControlPanel() {
+  const {
+    defaultMinutes,
+    defaultBreakLength,
+    setDefaultMinutes,
+    setDefaultBreakLength,
+    setBreakLength,
+    setMinutes,
+  }: any = useContext(TimeProvider);
   return (
     <>
       <article className="flex w-[35rem] justify-between">
@@ -16,14 +27,24 @@ export default function ControlPanel() {
               alt="logo"
               role="button"
               aria-label="decrease break length"
+              onClick={() => {
+                if (defaultBreakLength > 1) {
+                  setDefaultBreakLength(defaultBreakLength - 1);
+                  setBreakLength(defaultBreakLength - 1);
+                }
+              }}
             />
-            <span className="text-[2rem]">5</span>
+            <span className="text-[2rem]">{defaultBreakLength}</span>
             <img
               className="h-[3rem] w-[3rem]"
               src={arrowUp}
               alt="logo"
               role="button"
               aria-label="increase break length"
+              onClick={() => {
+                setDefaultBreakLength(defaultBreakLength + 1);
+                setBreakLength(defaultBreakLength + 1);
+              }}
             />
           </div>
         </section>
@@ -36,14 +57,26 @@ export default function ControlPanel() {
               alt="logo"
               role="button"
               aria-label="decrease Session Length"
+              onClick={() => {
+                if (defaultMinutes > 1) {
+                  setDefaultMinutes(defaultMinutes - 1);
+                  setMinutes(defaultMinutes - 1);
+                }
+              }}
             />
-            <span className="text-[2rem]">25</span>
+            <span className="text-[2rem]">{defaultMinutes}</span>
             <img
               className="h-[3rem] w-[3rem]"
               src={arrowUp}
               alt="logo"
               role="button"
               aria-label="increase Session Length"
+              onClick={() => {
+                if (defaultMinutes > 0) {
+                  setDefaultMinutes(defaultMinutes + 1);
+                  setMinutes(defaultMinutes + 1);
+                }
+              }}
             />
           </div>
         </section>
